@@ -1,0 +1,380 @@
+<CustomContorol:WindowBase
+     x:Class="WpfSample.Views.MstOffice"
+     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+     xmlns:Behavior="clr-namespace:WpfControlLibrary.Behavior;assembly=WpfControlLibrary"
+     xmlns:CustomContorol="clr-namespace:WpfControlLibrary.CustomContorol;assembly=WpfControlLibrary"
+     xmlns:UserControls="clr-namespace:WpfSample.UserControls"
+     xmlns:Interactivity="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.NET46"
+     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+     xmlns:local="clr-namespace:WpfSample.Views"
+     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+     x:Name="ViewMstOffice"
+     Title=""
+     Width ="1200"
+     Height="680"
+     WindowStartupLocation="CenterScreen"
+     mc:Ignorable="d">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Style/StyleDic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid Style="{StaticResource grid-defalut}">
+        <StackPanel>
+            <UserControls:CustomMenu ThisWindow="{ Binding ElementName = ViewMstOffice}" />
+
+            <DockPanel>
+                <StackPanel Style="{StaticResource stackpanel-header-left}">
+                    <Label Content="事業所マスタ" Style="{StaticResource label-title}" />
+                </StackPanel>
+
+                <StackPanel Style="{StaticResource stackpanel-header-right}">
+                    <StackPanel Style="{StaticResource stackpanel-header-button}">
+                        <Button Style="{StaticResource btn-new}" />
+                        <Button Style="{StaticResource btn-delete}" />
+                        <Button Style="{StaticResource btn-registration}" />
+                    </StackPanel>
+                </StackPanel>
+            </DockPanel>
+
+            <StackPanel Style="{StaticResource stackpanel-body}">
+                <StackPanel>
+                    <StackPanel Style="{StaticResource stackpanel-defalut}">
+                        <Label
+                        Width="80"
+                        Content="事業所番号"
+                        Style="{ StaticResource label-default}" />
+
+                        <TextBox
+                        Width="120"
+                        MaxLength="14"
+                        Style="{StaticResource textbox-imedisable}"
+                        Text="{Binding SearchOptionEntity.Value.事業所番号}" />
+                    </StackPanel>
+
+                    <StackPanel Style="{StaticResource stackpanel-defalut}">
+                        <Label
+                        Width="80"
+                        Content="事業所名"
+                        Style="{ StaticResource label-default}" />
+
+                        <TextBox
+                        Width="120"
+                        MaxLength="50"
+                        Style="{StaticResource textbox-default}"
+                        Text="{Binding SearchOptionEntity.Value.事業所名}" />
+                    </StackPanel>
+
+                    <StackPanel Style="{StaticResource stackpanel-defalut}">
+                        <Label
+                        Width="80"
+                        Content="事業所名カナ"
+                        Style="{ StaticResource label-default}" />
+
+                        <TextBox
+                        Width="120"
+                        MaxLength="100"
+                        Style="{StaticResource textbox-harfkana}"
+                        Text="{Binding SearchOptionEntity.Value.事業所名カナ}" />
+                    </StackPanel>
+
+                    <StackPanel Style="{StaticResource stackpanel-defalut}">
+                        <Label
+                        Width="80"
+                        Content="定員規模開始"
+                        Style="{ StaticResource label-default}" />
+
+                        <TextBox
+                        Width="120"
+                        Behavior:TextBoxBehaviors.NumConfig="0, 99999, 0"
+                        MaxLength="6"
+                        Style="{StaticResource textbox-number}"
+                        Text="{Binding SearchOptionEntity.Value.定員規模開始}" />
+                    </StackPanel>
+
+                    <StackPanel Style="{StaticResource stackpanel-defalut}">
+                        <Label
+                        Width="80"
+                        Content="定員規模終了"
+                        Style="{ StaticResource label-default}" />
+
+                        <TextBox
+                        Width="120"
+                        Behavior:TextBoxBehaviors.NumConfig="0, 99999, 0"
+                        MaxLength="6"
+                        Style="{StaticResource textbox-number}"
+                        Text="{Binding SearchOptionEntity.Value.定員規模終了}" />
+                    </StackPanel>
+
+                    <StackPanel Style="{ StaticResource stackpanel-defalut}">
+                        <Button Style="{StaticResource button-search}" />
+                    </StackPanel>
+
+                    <StackPanel Style="{StaticResource stackpanel-defalut}">
+                        <DataGrid
+                        x:Name="dataGrid1"
+                        Width="280"
+                        Height="383"
+                        Style="{StaticResource grid-search}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseDoubleClick">
+                                    <i:InvokeCommandAction Command="{Binding DataGridMouseDoubleClickComand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                Width="200"
+                                Binding="{Binding 事業所名}"
+                                Header="事業所名" />
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Margin="10,0,0,0">
+                    <StackPanel Style="{StaticResource stackpanel-defalut}">
+                        <Label Content="事業所番号" Style="{StaticResource label-default}" />
+
+                        <TextBox
+                        Width="92"
+                        IsEnabled="{Binding IsPrimaryKeyEnabled.Value}"
+                        MaxLength="14"
+                        Style="{StaticResource textbox-imedisable}"
+                        Text="{Binding EditData.Value.事業所番号}" />
+                    </StackPanel>
+
+                    <StackPanel Style="{StaticResource stackpanel-defalut}">
+                        <Label Content="事業所名" Style="{StaticResource label-default}" />
+
+                        <TextBox
+                        Width="608"
+                        MaxLength="50"
+                        Style="{StaticResource textbox-default}"
+                        Text="{Binding EditData.Value.事業所名}" />
+                    </StackPanel>
+
+                    <StackPanel Style="{StaticResource stackpanel-defalut}">
+                        <Label Content="事業所名カナ" Style="{StaticResource label-default}" />
+
+                        <TextBox
+                        Width="608"
+                        MaxLength="100"
+                        Style="{StaticResource textbox-harfkana}"
+                        Text="{Binding EditData.Value.事業所名カナ}" />
+                    </StackPanel>
+
+                    <StackPanel Style="{StaticResource stackpanel-defalut}">
+                        <Label Content="郵便番号" Style="{StaticResource label-default}" />
+
+                        <TextBox
+                        Width="50"
+                        MaxLength="7"
+                        Style="{StaticResource textbox-imedisable}"
+                        Text="{Binding EditData.Value.郵便番号}" />
+                    </StackPanel>
+
+                    <StackPanel Style="{StaticResource stackpanel-defalut}">
+                        <Label Content="住所1" Style="{StaticResource label-default}" />
+
+                        <TextBox
+                        Width="608"
+                        MaxLength="50"
+                        Style="{StaticResource textbox-default}"
+                        Text="{Binding EditData.Value.住所1}" />
+                    </StackPanel>
+
+                    <StackPanel Style="{StaticResource stackpanel-defalut}">
+                        <Label Content="住所2" Style="{StaticResource label-default}" />
+
+                        <TextBox
+                        Width="608"
+                        MaxLength="50"
+                        Style="{StaticResource textbox-default}"
+                        Text="{Binding EditData.Value.住所2}" />
+                    </StackPanel>
+
+                    <StackPanel Style="{StaticResource stackpanel-defalut}">
+                        <Label Content="代表者" Style="{StaticResource label-default}" />
+
+                        <TextBox
+                        Width="608"
+                        MaxLength="50"
+                        Style="{StaticResource textbox-default}"
+                        Text="{Binding EditData.Value.代表者}" />
+                    </StackPanel>
+
+                    <StackPanel Style="{StaticResource stackpanel-defalut}">
+                        <Label Content="電話番号" Style="{StaticResource label-default}" />
+
+                        <TextBox
+                        Width="98"
+                        MaxLength="15"
+                        Style="{StaticResource textbox-imedisable}"
+                        Text="{Binding EditData.Value.電話番号}" />
+                    </StackPanel>
+
+                    <StackPanel Style="{StaticResource stackpanel-defalut}">
+                        <Label Content="定員規模" Style="{StaticResource label-default}" />
+
+                        <CustomContorol:NumberTextBox
+                        Width="44"
+                        MaxLength="6"
+                        MinValue="0"
+                        MaxValue="99999"
+                        DecimalPart="0"
+                        Style="{StaticResource textbox-number}"
+                        Text="{Binding EditData.Value.定員規模}" />
+                    </StackPanel>
+
+
+
+                    <StackPanel Style="{StaticResource stackpanel-orientation-vertical}">
+                        <DataGrid
+                        Width="800"
+                        Height="200"
+                        Behavior:DataGridBehaviors.IsInput="True"
+                        ItemsSource="{Binding EditGridDetailData.Value}"
+                        Style="{StaticResource grid-input}">
+
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Width="40">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button
+                                            Width="40"
+                                            Command="{Binding DataContext.BtnDeleteGridDetailRowCommand, ElementName = ViewMstOffice}"
+                                            CommandParameter="{Binding}"
+                                            Content="削除"
+                                            Style="{ StaticResource button-grid}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="施設名" Width="608">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox
+                                            MaxLength="50"
+                                            Style="{StaticResource textbox-grid-default}"
+                                            Text="{Binding 施設名, UpdateSourceTrigger=LostFocus}" 
+                                            HorizontalAlignment="Stretch" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="障害者種別" Width="144">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox
+                                            DisplayMemberPath="名称"
+                                            ItemsSource="{Binding DataContext.ComboItems障害者種別.Value, ElementName=ViewMstOffice}"
+                                            SelectedValue="{Binding 障害者種別, UpdateSourceTrigger=LostFocus}"
+                                            SelectedValuePath="コード"
+                                            Style="{StaticResource combobox-grid}" 
+                                            HorizontalAlignment="Stretch" 
+                                            />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="サービス種類コード">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox
+                                            DisplayMemberPath="サービス種類名"
+                                            ItemsSource="{Binding DataContext.ComboItemsサービス種類.Value, ElementName=ViewMstOffice}"
+                                            SelectedValue="{Binding サービス種類CD, UpdateSourceTrigger=LostFocus}"
+                                            SelectedValuePath="サービス種類CD"
+                                            Style="{StaticResource combobox-grid}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="サービス提供単位番号">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox
+                                            Width="128"
+                                            MaxLength="20"
+                                            Style="{StaticResource textbox-grid-imedisable}"
+                                            Text="{Binding サービス提供単位番号, UpdateSourceTrigger=LostFocus}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="定員">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CustomContorol:NumberTextBox
+                                            Width="38"
+                                            MaxLength="5"
+                                            MinValue="0"
+                                            MaxValue="9999"
+                                            DecimalPart="0"
+                                            Style="{StaticResource textbox-grid-number}"
+                                            Text="{Binding 定員, UpdateSourceTrigger=LostFocus}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="多機能型用件">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox
+                                            Width="80"
+                                            MaxLength="1"
+                                            Style="{StaticResource textbox-grid-imedisable}"
+                                            Text="{Binding 多機能型用件, UpdateSourceTrigger=LostFocus}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                                <DataGridTemplateColumn Header="単位数単価">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CustomContorol:NumberTextBox
+                                            Width="68"
+                                            MaxLength="8"
+                                            MinValue="0"
+                                            MaxValue="99.99"
+                                            DecimalPart="2"
+                                            Style="{StaticResource textbox-grid-number}"
+                                            Text="{Binding 単位数単価, UpdateSourceTrigger=LostFocus}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                        <Button
+                        Width="80"
+                        Margin="5"
+                        Command="{Binding BtnAddGridDetailRowCommand}"
+                        Content="行追加"
+                        Style="{StaticResource button-default}" />
+                    </StackPanel>
+
+
+                    <StackPanel Style="{StaticResource stackpanel-defalut}">
+                        <Border Style="{StaticResource border-errormessage}">
+                            <TextBox Style="{StaticResource textbox-errormessage}" />
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</CustomContorol:WindowBase>
+ 

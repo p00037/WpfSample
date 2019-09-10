@@ -1,0 +1,33 @@
+﻿<Window
+    x:Class="AcReportBase.ReportViewer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Wpf="clr-namespace:GrapeCity.ActiveReports.Viewer.Wpf;assembly=GrapeCity.ActiveReports.Viewer.Wpf.v12"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:AcReportBase"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="ViewReportViewer"
+    Title="ReportViewer"
+    Width="1200"
+    Height="680"
+    Loaded="Window_Loaded"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Maximized"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="DefaultWPFViewerTemplates.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Wpf:Viewer
+            x:Name="Viewer"
+            Grid.ColumnSpan="2"
+            Margin="0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch" />
+
+    </Grid>
+</Window>

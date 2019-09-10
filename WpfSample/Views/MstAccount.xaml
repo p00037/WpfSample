@@ -1,0 +1,124 @@
+﻿<CustomContorol:WindowBase
+    x:Class="WpfSample.Views.MstAccount"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Behavior="clr-namespace:WpfControlLibrary.Behavior;assembly=WpfControlLibrary"
+    xmlns:CustomContorol="clr-namespace:WpfControlLibrary.CustomContorol;assembly=WpfControlLibrary"
+    xmlns:Interactivity="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.NET46"
+    xmlns:UserControls="clr-namespace:WpfSample.UserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:local="clr-namespace:WpfSample.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="ViewMstAccount"
+    Title=""
+    Width="1200"
+    Height="680"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Style/StyleDic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid Style="{StaticResource grid-defalut}">
+        <StackPanel>
+            <UserControls:CustomMenu ThisWindow="{Binding ElementName=ViewMstAccount}" />
+
+            <DockPanel>
+                <StackPanel Style="{StaticResource stackpanel-header-left}">
+                    <Label Content="ログインマスタ" Style="{StaticResource label-title}" />
+                </StackPanel>
+
+                <StackPanel Style="{StaticResource stackpanel-header-right}">
+                    <StackPanel Style="{StaticResource stackpanel-header-button}">
+                        <Button Style="{StaticResource btn-new}" />
+                        <Button Style="{StaticResource btn-delete}" />
+                        <Button Style="{StaticResource btn-registration}" />
+                    </StackPanel>
+                </StackPanel>
+            </DockPanel>
+
+            <StackPanel Style="{StaticResource stackpanel-body}">
+                <StackPanel>
+                    <StackPanel Style="{StaticResource stackpanel-defalut}">
+                        <Label
+                            Width="80"
+                            Content="ログインID"
+                            Style="{StaticResource label-default}" />
+
+                        <TextBox
+                            Width="120"
+                            MaxLength="20"
+                            Style="{StaticResource textbox-imedisable}"
+                            Text="{Binding SearchOptionEntity.Value.LoginId}" />
+                    </StackPanel>
+
+                    <StackPanel Style="{StaticResource stackpanel-defalut}">
+                        <Button Style="{StaticResource button-search}" />
+                    </StackPanel>
+
+                    <StackPanel Style="{StaticResource stackpanel-defalut}">
+                        <DataGrid
+                            x:Name="dataGrid1"
+                            Width="280"
+                            Height="450"
+                            Style="{StaticResource grid-search}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseDoubleClick">
+                                    <i:InvokeCommandAction Command="{Binding DataGridMouseDoubleClickComand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <DataGrid.Columns>
+                                <DataGridTextColumn
+                                    Width="200"
+                                    Binding="{Binding LoginId}"
+                                    Header="ログインID" />
+
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Margin="10,0,0,0">
+                    <StackPanel Style="{StaticResource stackpanel-defalut}">
+                        <Label Content="ログインID" Style="{StaticResource label-default}" />
+
+                        <TextBox
+                            Width="128"
+                            IsEnabled="{Binding IsPrimaryKeyEnabled.Value}"
+                            MaxLength="20"
+                            Style="{StaticResource textbox-imedisable}"
+                            Text="{Binding EditData.Value.LoginId}" />
+
+
+                    </StackPanel>
+
+                    <StackPanel Style="{StaticResource stackpanel-defalut}">
+                        <Label Content="パスワード" Style="{StaticResource label-default}" />
+
+                        <TextBox
+                            Width="128"
+                            MaxLength="20"
+                            Style="{StaticResource textbox-imedisable}"
+                            Text="{Binding EditData.Value.Password}" />
+                    </StackPanel>
+
+                    <StackPanel Style="{StaticResource stackpanel-defalut}">
+                        <Border Style="{StaticResource border-errormessage}">
+                            <TextBox Style="{StaticResource textbox-errormessage}" />
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</CustomContorol:WindowBase>

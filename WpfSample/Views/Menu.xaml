@@ -1,0 +1,103 @@
+﻿<CustomContorol:WindowBase
+    x:Class="WpfSample.Views.Menu"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Behavior="clr-namespace:WpfControlLibrary.Behavior;assembly=WpfControlLibrary"
+    xmlns:CustomContorol="clr-namespace:WpfControlLibrary.CustomContorol;assembly=WpfControlLibrary"
+    xmlns:Interactivity="clr-namespace:Reactive.Bindings.Interactivity;assembly=ReactiveProperty.NET46"
+    xmlns:UserControls="clr-namespace:WpfSample.UserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:local="clr-namespace:WpfSample.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="ViewMenu"
+    Title="Menu"
+    Width="1200"
+    Height="680"
+    Background="#FFEEF4FB"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <CustomContorol:WindowBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Style/StyleDic.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </CustomContorol:WindowBase.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid Style="{StaticResource grid-defalut}">
+        <StackPanel>
+            <UserControls:CustomMenu ThisWindow="{Binding ElementName=ViewMenu}" />
+
+            <Grid Margin="20,10">
+                <Label
+                    Grid.ColumnSpan="2"
+                    Content="WpfSample"
+                    Style="{StaticResource label-title}" />
+
+                <!--<Button
+                Margin="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Command="{Binding BtnEndCommand}"
+                Content="終了"
+                FontSize="24"
+                Style="{StaticResource btn-baseoperation}" Grid.Column="1" />-->
+            </Grid>
+
+            <!--<StackPanel Margin="10" Orientation="Horizontal">
+            <StackPanel Margin="10,0">
+                <Button
+                    Width="371"
+                    Height="54"
+                    Margin="0,10"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Command="{Binding BtnOpenMstAccountCommand}"
+                    Content="ユーザーマスタ"
+                    FontSize="24"
+                    FontWeight="Bold" />
+
+                <Button
+                    Width="371"
+                    Height="54"
+                    Margin="0,10"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content=""
+                    FontSize="24"
+                    FontWeight="Bold" />
+            </StackPanel>
+
+            <StackPanel Margin="10,0">
+                <Button
+                    Width="371"
+                    Height="54"
+                    Margin="0,10"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content=""
+                    FontSize="24"
+                    FontWeight="Bold" />
+            </StackPanel>
+
+            <StackPanel Margin="10,0">
+                <Button
+                    Width="371"
+                    Height="54"
+                    Margin="0,10"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Content=""
+                    FontSize="24"
+                    FontWeight="Bold" />
+            </StackPanel>
+        </StackPanel>-->
+        </StackPanel>
+    </Grid>
+</CustomContorol:WindowBase>
